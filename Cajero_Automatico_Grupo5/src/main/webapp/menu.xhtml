@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      lang="es">
+
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Menú Principal</ui:define>
+
+    <ui:define name="content">
+        <div class="menu-container">
+            <div class="header">
+                <h1>Bienvenido al Cajero Automático</h1>
+                <p>Hola, #{cajeroBean.clienteActual.nombre}</p>
+            </div>
+
+            <div class="two-columns">
+                <div class="column-left">
+                    <div class="detalles">
+                        <h3>Información de la Cuenta</h3>
+                        <p><strong>Cliente:</strong> #{cajeroBean.clienteActual.nombre}</p>
+                        <p><strong>Cuenta:</strong> #{cajeroBean.clienteActual.numeroCuenta}</p>
+                        <p><strong>DNI:</strong> #{cajeroBean.clienteActual.dni}</p>
+                        <p><strong>Saldo Actual:</strong> #{cajeroBean.formatoMoneda(cajeroBean.clienteActual.saldo)}</p>
+                        <p><strong>Fecha:</strong> #{cajeroBean.fechaActual}</p>
+                        <p><strong>Hora:</strong> #{cajeroBean.horaActual}</p>
+                    </div>
+                </div>
+
+                <div class="column-right">
+                    <div class="menu-horizontal">
+                        <h:link outcome="consulta" value="Consultar Saldo" styleClass="menu-btn" />
+                        <h:link outcome="deposito" value="Realizar Depósito" styleClass="menu-btn btn-success" />
+                        <h:link outcome="retiro" value="Realizar Retiro" styleClass="menu-btn btn-danger" />
+                        <h:link outcome="ayuda" value="Ayuda" styleClass="menu-btn" />
+                    </div>
+
+                    <h:form>
+                        <h:commandButton value="Cerrar Sesión" action="#{cajeroBean.cerrarSesion}"
+                                         styleClass="btn btn-large" immediate="true" />
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

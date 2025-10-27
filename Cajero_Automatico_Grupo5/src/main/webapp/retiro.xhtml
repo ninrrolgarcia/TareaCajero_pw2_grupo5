@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      lang="es">
+
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Realizar Retiro</ui:define>
+
+    <ui:define name="content">
+        <div class="retiro-container">
+            <h1>Realizar Retiro</h1>
+
+            <div class="detalles">
+                <p><strong>Cliente:</strong> #{cajeroBean.clienteActual.nombre}</p>
+                <p><strong>Saldo Actual:</strong> #{cajeroBean.formatoMoneda(cajeroBean.clienteActual.saldo)}</p>
+            </div>
+
+            <h:form>
+                <div class="form-group">
+                    <label>Monto a Retirar (L.):</label>
+                    <h:inputText value="#{cajeroBean.montoTransaccion}"
+                                 required="true"
+                                 requiredMessage="El monto es requerido"
+                                 converter="jakarta.faces.Double"
+                                 styleClass="monto-input" />
+                </div>
+
+                <div class="botones-rapidos">
+                    <button type="button" onclick="setMonto(100)">L. 100</button>
+                    <button type="button" onclick="setMonto(500)">L. 500</button>
+                    <button type="button" onclick="setMonto(1000)">L. 1,000</button>
+                    <button type="button" onclick="setMonto(2000)">L. 2,000</button>
+                </div>
+
+                <h:commandButton value="Realizar Retiro" action="#{cajeroBean.realizarRetiro}"
+                                 styleClass="btn btn-danger" />
+                <h:button outcome="menu" value="Volver al Menú" styleClass="btn" />
+            </h:form>
+
+            <div class="mensaje #{cajeroBean.tipoMensaje}"
+                 rendered="#{not empty cajeroBean.mensaje}">
+                #{cajeroBean.mensaje}
+            </div>
+        </div>
+
+        <script>
+            function setMonto(monto) {
+                document.querySelector('[id*="montoTransaccion"]').value = monto;
+            }
+        </script>
+    </ui:define>
+</ui:composition>
+</html>
