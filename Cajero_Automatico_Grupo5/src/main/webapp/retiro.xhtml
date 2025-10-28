@@ -20,6 +20,7 @@
                 <div class="form-group">
                     <label>Monto a Retirar (L.):</label>
                     <h:inputText value="#{cajeroBean.montoTransaccion}"
+                                 id="montoTransaccion"
                                  required="true"
                                  requiredMessage="El monto es requerido"
                                  converter="jakarta.faces.Double"
@@ -46,7 +47,8 @@
 
         <script>
             function setMonto(monto) {
-                document.querySelector('[id*="montoTransaccion"]').value = monto;
+                var input = document.querySelector('input[id$="montoTransaccion"]');
+                if (input) input.value = monto;
             }
         </script>
     </ui:define>
