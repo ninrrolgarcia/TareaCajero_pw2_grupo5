@@ -9,21 +9,20 @@ import java.util.List;
 public class FileUtil {
     public static List<Cliente> cargarClientesDesdeArchivo() {
         List<Cliente> clientes = new ArrayList();
-        System.out.println("=== INICIANDO CARGA DE CLIENTES ===");
 
         try {
             InputStream inputStream = FileUtil.class.getResourceAsStream("/datos/clientes.txt");
             if (inputStream == null) {
-                System.out.println("❌ No se encontró /datos/clientes.txt, intentando alternativa...");
+                System.out.println("No se encontró /datos/clientes.txt, intentando alternativa...");
                 inputStream = FileUtil.class.getClassLoader().getResourceAsStream("datos/clientes.txt");
             }
 
             if (inputStream == null) {
-                System.out.println("❌ No se pudo encontrar el archivo clientes.txt en ninguna ubicación");
-                System.out.println("✅ Usando datos de prueba...");
+                System.out.println("No se pudo encontrar el archivo clientes.txt en ninguna ubicación");
+                System.out.println("Usando datos de prueba...");
                 return crearClientesPrueba();
             } else {
-                System.out.println("✅ Archivo clientes.txt encontrado, procesando...");
+                System.out.println("Archivo clientes.txt encontrado, procesando...");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 int lineCount = 0;
                 int clientesCargados = 0;
@@ -43,9 +42,9 @@ public class FileUtil {
                             String dni = datos[4].trim();
                             clientes.add(new Cliente(numeroCuenta, nombre, saldo, pin, dni));
                             ++clientesCargados;
-                            System.out.println("✅ Cliente cargado: " + numeroCuenta + " - " + nombre);
+                            System.out.println("Cliente cargado: " + numeroCuenta + " - " + nombre);
                         } else {
-                            System.out.println("❌ Línea mal formada (esperaba 5 campos, obtuvo " + datos.length + "): " + linea);
+                            System.out.println("Línea mal formada (esperaba 5 campos, obtuvo " + datos.length + "): " + linea);
                         }
                     }
                 }
@@ -56,22 +55,22 @@ public class FileUtil {
                 System.out.println("Clientes cargados: " + clientesCargados);
                 System.out.println("Total en lista: " + clientes.size());
                 if (clientes.isEmpty()) {
-                    System.out.println("⚠️ Lista de clientes vacía, usando datos de prueba");
+                    System.out.println("Lista de clientes vacía, usando datos de prueba");
                     return crearClientesPrueba();
                 } else {
                     return clientes;
                 }
             }
         } catch (Exception e) {
-            System.err.println("❌ Error crítico al cargar clientes: " + e.getMessage());
+            System.err.println("Error crítico al cargar clientes: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("✅ Usando datos de prueba por fallo...");
+            System.out.println("Usando datos de prueba por fallo...");
             return crearClientesPrueba();
         }
     }
 
     private static List<Cliente> crearClientesPrueba() {
-        System.out.println("=== CREANDO CLIENTES DE PRUEBA ===");
+        System.out.println("=== CLIENTES DE PRUEBA ===");
         List<Cliente> clientes = new ArrayList();
         clientes.add(new Cliente("4024-1111-2222-3333", "José Castillo",    (double) 12500.00, "4821", "0801-1987-04321"));
         clientes.add(new Cliente("4532-4444-5555-6666", "María Molina",     (double) 8500.50,  "2198", "0801-1991-56789"));

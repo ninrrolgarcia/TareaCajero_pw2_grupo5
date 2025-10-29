@@ -3,11 +3,11 @@ package hn.uth.cajero_automatico_grupo5;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-@ApplicationScoped // Bean de alcance de aplicación (sin estado)
+@ApplicationScoped
 public class DepositoBean {
 
     @Inject
-    private FormatUtil formatUtil; // Inyectamos nuestra utilidad de formato
+    private FormatUtil formatUtil;
 
     public ResultadoTransaccion ejecutar(Cliente cliente, double monto) {
         if (monto <= 0.0) {
@@ -17,10 +17,8 @@ public class DepositoBean {
             return new ResultadoTransaccion(false, "El monto máximo por depósito es L. 50,000.00");
         }
 
-        // Lógica de negocio
         double nuevoSaldo = cliente.getSaldo() + monto;
 
-        // Mensaje de éxito
         String mensaje = "Depósito exitoso. " + formatUtil.formatoMoneda(monto) +
                 " depositados. Nuevo saldo: " + formatUtil.formatoMoneda(nuevoSaldo);
 

@@ -1,10 +1,9 @@
 package hn.uth.cajero_automatico_grupo5;
 
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Inject; // ¡Importante! Usar jakarta.inject.Inject
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
-// Quita SimpleDateFormat y Date si ya no se usan aquí
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,6 @@ import java.util.Optional;
 public class CajeroBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // --- Servicios Inyectados ---
     @Inject
     private DepositoBean depositoBean;
 
@@ -23,7 +21,6 @@ public class CajeroBean implements Serializable {
     @Inject
     private FormatUtil formatUtil; // Inyectamos la utilidad también
 
-    // --- Estado de la Sesión ---
     private List<Cliente> clientes = FileUtil.cargarClientesDesdeArchivo();
     private Cliente clienteActual;
     private String numeroCuentaIngresado;
@@ -33,7 +30,6 @@ public class CajeroBean implements Serializable {
     private boolean autenticado = false;
     private String tipoMensaje;
 
-    // --- Autenticación (Esta lógica se queda aquí) ---
     public String autenticar() {
         System.out.println("=== INTENTO DE AUTENTICACIÓN ===");
         System.out.println("Cuenta ingresada: '" + this.numeroCuentaIngresado + "'");
@@ -68,24 +64,19 @@ public class CajeroBean implements Serializable {
         return null;
     }
 
-    // --- Operaciones (Ahora delegan a los servicios) ---
-
     public void realizarDeposito() {
         if (!this.validarAutenticacion()) {
-            return; // El mensaje de error ya lo puso validarAutenticacion()
+            return;
         }
 
-        // 1. Delegamos la lógica al servicio
         ResultadoTransaccion resultado = depositoBean.ejecutar(this.clienteActual, this.montoTransaccion);
 
-        // 2. Actualizamos el estado de la sesión (CajeroBean) según la respuesta
         this.mensaje = resultado.getMensaje();
         this.tipoMensaje = resultado.isExito() ? "success" : "error";
 
         if (resultado.isExito()) {
-            // 3. Aplicamos el cambio al cliente DE LA SESIÓN
             this.clienteActual.setSaldo(resultado.getNuevoSaldo());
-            this.montoTransaccion = 0.0; // Limpiamos el monto
+            this.montoTransaccion = 0.0;
         }
     }
 
@@ -94,21 +85,17 @@ public class CajeroBean implements Serializable {
             return;
         }
 
-        // 1. Delegamos la lógica al servicio
         ResultadoTransaccion resultado = retiroBean.ejecutar(this.clienteActual, this.montoTransaccion);
 
-        // 2. Actualizamos el estado de la sesión
         this.mensaje = resultado.getMensaje();
         this.tipoMensaje = resultado.isExito() ? "success" : "error";
 
         if (resultado.isExito()) {
-            // 3. Aplicamos el cambio al cliente DE LA SESIÓN
             this.clienteActual.setSaldo(resultado.getNuevoSaldo());
-            this.montoTransaccion = 0.0; // Limpiamos el monto
+            this.montoTransaccion = 0.0;
         }
     }
 
-    // --- Métodos de Sesión y Validación (Se quedan aquí) ---
 
     private boolean validarAutenticacion() {
         if (this.autenticado && this.clienteActual != null) {
@@ -130,10 +117,8 @@ public class CajeroBean implements Serializable {
         return "index?faces-redirect=true";
     }
 
-    // --- Métodos de Utilidad (Ahora usan el servicio inyectado) ---
 
     public String formatoMoneda(double monto) {
-        // Delegamos al servicio de formato
         return formatUtil.formatoMoneda(monto);
     }
 
@@ -145,13 +130,9 @@ public class CajeroBean implements Serializable {
         return formatUtil.getHoraActual();
     }
 
-    // --- Getters y Setters (Permanecen igual) ---
-    // (Asegúrate de que todos los getters y setters que tenías sigan aquí)
-
     public List<Cliente> getClientes() {
         return this.clientes;
     }
-    // ... (el resto de tus getters y setters) ...
     public Cliente getClienteActual() {
         return this.clienteActual;
     }

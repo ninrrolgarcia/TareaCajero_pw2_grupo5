@@ -1,26 +1,26 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      lang="es">
+        <!DOCTYPE html>
+        <html xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:f="http://xmlns.jcp.org/jsf/core"
+              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+              lang="es">
 
-<ui:composition template="/template.xhtml">
+        <ui:composition template="/template.xhtml">
 
-    <ui:define name="title">Bienvenido al Cajero</ui:define>
+            <ui:define name="title">Bienvenido al Cajero</ui:define>
 
-    <ui:define name="content">
+            <ui:define name="content">
 
-        <div class="container">
-            <h:graphicImage library="img" name="Logo.png" alt="Logo Cajero" styleClass="logo" />
+                <div class="container">
+                    <h:graphicImage library="img" name="Logo.png" alt="Logo Cajero" styleClass="logo" />
 
-            <h1><h:outputText value="¡Bienvenido al Cajero Automático!" /></h1>
+                    <h1><h:outputText value="¡Bienvenido al Cajero Automático!" /></h1>
 
-            <h:form>
-                <h:button value="Continuar" outcome="login" styleClass="btn" />
-            </h:form>
-        </div>
+                    <h:form>
+                        <h:button value="Continuar" outcome="login" styleClass="btn" />
+                    </h:form>
+                </div>
 
-    </ui:define>
-</ui:composition>
-</html>
+        </ui:define>
+    </ui:composition>
+    </html>

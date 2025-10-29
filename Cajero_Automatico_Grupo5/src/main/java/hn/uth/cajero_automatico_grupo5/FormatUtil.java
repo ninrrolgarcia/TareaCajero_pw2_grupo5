@@ -1,10 +1,10 @@
 package hn.uth.cajero_automatico_grupo5;
 
-import jakarta.enterprise.context.ApplicationScoped; // Usamos ApplicationScoped para que sea un bean
+import jakarta.enterprise.context.ApplicationScoped;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ApplicationScoped // Lo hacemos un bean para poder inyectarlo
+@ApplicationScoped
 public class FormatUtil {
 
     public String formatoMoneda(double monto) {
