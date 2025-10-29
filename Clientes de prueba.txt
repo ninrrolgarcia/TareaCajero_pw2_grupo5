@@ -1,0 +1,6 @@
+nombre | numeroCuenta | pin
+Miguel Hernández | 4025-2222-3333-4444 | 1234
+Laura Méndez | 4533-5555-6666-7777 | 5678
+Ricardo Torres | 4717-8888-9999-0000 | 4321
+Sofía Ramírez| 4486-1111-2222-3333 | 8765
+Fernando López | 4027-4444-5555-6666| 3456
